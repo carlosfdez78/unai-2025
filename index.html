@@ -131,12 +131,13 @@
         .inventory {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 20px;
             background: rgba(0, 0, 0, 0.7);
             padding: 10px;
             border-radius: 10px;
             font-size: 0.9em;
-            min-width: 120px;
+            max-width: 150px;
+            z-index: 1000;
         }
 
         .inventory h4 {
@@ -186,8 +187,16 @@
             
             .inventory {
                 top: 10px;
-                right: 10px;
+                left: 10px;
                 font-size: 0.8em;
+                max-width: 120px;
+                padding: 8px;
+            }
+            
+            .progress-bar {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
             }
         }
     </style>
