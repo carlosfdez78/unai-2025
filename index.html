@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room - Aventura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .screen.prev {
+            transform: translateX(-100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(45deg, #4834d4, #686de0);
+        }
+
+        .puzzle-area {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            text-align: center;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .inventory {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            min-width: 120px;
+        }
+
+        .inventory h4 {
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .inventory-item {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 5px 0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                margin: 0 10px;
+            }
+            
+            h1 {
+                font-size: 1.7em;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            
+            .inventory {
+                top: 10px;
+                right: 10px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de Inicio -->
+    <div class="screen active" id="screen-start">
+        <div class="container">
+            <h1>🏰 El Castillo Misterioso</h1>
+            <p>Te encuentras frente a un antiguo castillo. La puerta está cerrada y necesitas encontrar la manera de entrar...</p>
+            <button class="btn" onclick="goToScreen('screen-door')">Examinar la puerta</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de la Puerta -->
+    <div class="screen" id="screen-door">
+        <div class="container">
+            <h2>🚪 La Puerta del Castillo</h2>
+            <p>Hay una cerradura antigua con números. También ves una placa con la inscripción: "La edad del castillo menos 100"</p>
+            <div class="puzzle-area">
+                <p><strong>Pista:</strong> El castillo fue construido en 1523</p>
+                <div class="input-group">
+                    <input type="number" id="door-code" placeholder="Ingresa el código" maxlength="3">
+                </div>
+                <button class="btn" onclick="checkDoorCode()">Probar código</button>
+            </div>
+            <button class="btn secondary" onclick="goToScreen('screen-start')">Volver</button>
+        </div>
+    </div>
+
+    <!-- Pantalla del Vestíbulo -->
+    <div class="screen" id="screen-lobby">
+        <div class="container">
+            <h2>🕯️ Vestíbulo</h2>
+            <p>¡Has entrado al castillo! El vestíbulo está iluminado por antorchas. Ves tres puertas.</p>
+            <button class="btn" onclick="goToScreen('screen-library')">Biblioteca 📚</button>
+            <button class="btn" onclick="goToScreen('screen-kitchen')">Cocina 🍽️</button>
+            <button class="btn" onclick="goToScreen('screen-tower')">Torre 🗼</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de la Biblioteca -->
+    <div class="screen" id="screen-library">
+        <div class="container">
+            <h2>📚 Biblioteca</h2>
+            <p>Estantes llenos de libros antiguos. En el escritorio hay un libro abierto con una página que dice:</p>
+            <div class="puzzle-area">
+                <p><em>"El tesoro está donde el tiempo no pasa, en la habitación más alta de esta casa"</em></p>
+            </div>
+            <button class="btn" onclick="addToInventory('Pista del libro')">Tomar pista</button>
+            <button class="btn secondary" onclick="goToScreen('screen-lobby')">Volver al vestíbulo</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de la Cocina -->
+    <div class="screen" id="screen-kitchen">
+        <div class="container">
+            <h2>🍽️ Cocina</h2>
+            <p>Una cocina medieval con un gran horno. En la mesa hay una llave dorada.</p>
+            <div class="puzzle-area">
+                <p>La llave tiene grabado: "Para la torre más alta"</p>
+            </div>
+            <button class="btn" onclick="addToInventory('Llave dorada')">Tomar llave</button>
+            <button class="btn secondary" onclick="goToScreen('screen-lobby')">Volver al vestíbulo</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de la Torre -->
+    <div class="screen" id="screen-tower">
+        <div class="container">
+            <h2>🗼 Torre</h2>
+            <p id="tower-text">Una escalera de caracol sube hacia la torre. La puerta de arriba está cerrada con llave.</p>
+            <div class="puzzle-area" id="tower-puzzle">
+                <p>Necesitas una llave para continuar...</p>
+            </div>
+            <button class="btn" id="tower-btn" onclick="checkTowerKey()">Usar llave</button>
+            <button class="btn secondary" onclick="goToScreen('screen-lobby')">Volver al vestíbulo</button>
+        </div>
+    </div>
+
+    <!-- Pantalla Final -->
+    <div class="screen" id="screen-final">
+        <div class="container">
+            <h2>🏆 ¡Victoria!</h2>
+            <p>¡Has encontrado el tesoro del castillo! Una gran cofre lleno de monedas doradas te espera.</p>
+            <div class="puzzle-area">
+                <h1>🎉</h1>
+                <p><strong>¡Felicidades, has escapado del castillo!</strong></p>
+            </div>
+            <button class="btn" onclick="restartGame()">Jugar de nuevo</button>
+        </div>
+    </div>
+
+    <!-- Inventario -->
+    <div class="inventory">
+        <h4>Inventario</h4>
+        <div id="inventory-items">
+            <div class="inventory-item">Vacío</div>
+        </div>
+    </div>
+
+    <!-- Barra de progreso -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <script>
+        let currentScreen = 'screen-start';
+        let inventory = [];
+        let progress = 0;
+        const totalSteps = 5; // Total de pasos para completar
+
+        function goToScreen(screenId) {
+            // Ocultar pantalla actual
+            const current = document.getElementById(currentScreen);
+            current.classList.remove('active');
+            current.classList.add('prev');
+            
+            // Mostrar nueva pantalla
+            setTimeout(() => {
+                current.classList.remove('prev');
+                const newScreen = document.getElementById(screenId);
+                newScreen.classList.add('active');
+                currentScreen = screenId;
+            }, 250);
+
+            updateProgress();
+        }
+
+        function checkDoorCode() {
+            const code = document.getElementById('door-code').value;
+            if (code == '423') { // 1523 - 100 = 423
+                alert('¡Código correcto! La puerta se abre...');
+                goToScreen('screen-lobby');
+                updateProgress();
+            } else {
+                alert('Código incorrecto. Inténtalo de nuevo.');
+                document.getElementById('door-code').value = '';
+            }
+        }
+
+        function addToInventory(item) {
+            if (!inventory.includes(item)) {
+                inventory.push(item);
+                updateInventoryDisplay();
+                updateProgress();
+                alert(`Has añadido: ${item}`);
+            } else {
+                alert('Ya tienes este objeto.');
+            }
+        }
+
+        function updateInventoryDisplay() {
+            const inventoryDiv = document.getElementById('inventory-items');
+            if (inventory.length === 0) {
+                inventoryDiv.innerHTML = '<div class="inventory-item">Vacío</div>';
+            } else {
+                inventoryDiv.innerHTML = inventory.map(item => 
+                    `<div class="inventory-item">${item}</div>`
+                ).join('');
+            }
+        }
+
+        function checkTowerKey() {
+            if (inventory.includes('Llave dorada')) {
+                alert('¡La llave funciona! Subes a la torre...');
+                goToScreen('screen-final');
+                updateProgress();
+            } else {
+                alert('Necesitas una llave para abrir esta puerta.');
+            }
+        }
+
+        function updateProgress() {
+            const screens = ['screen-start', 'screen-door', 'screen-lobby', 'screen-library', 'screen-kitchen', 'screen-tower', 'screen-final'];
+            const currentIndex = screens.indexOf(currentScreen);
+            progress = Math.min((currentIndex / (screens.length - 1)) * 100, 100);
+            
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function restartGame() {
+            currentScreen = 'screen-start';
+            inventory = [];
+            progress = 0;
+            
+            // Ocultar todas las pantallas
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active', 'prev');
+            });
+            
+            // Mostrar pantalla inicial
+            document.getElementById('screen-start').classList.add('active');
+            
+            // Resetear displays
+            updateInventoryDisplay();
+            updateProgress();
+            document.getElementById('door-code').value = '';
+        }
+
+        // Prevenir zoom en inputs en iOS
+        document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.fontSize = '16px';
+            });
+        });
+    </script>
+</body>
+</html>
