@@ -44,15 +44,19 @@
         }
 
         .container {
-            width: 100%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.1);
+            width: calc(100vw - 20px);
+            height: calc(100vh - 20px);
+            margin: 10px;
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         h1 {
@@ -71,7 +75,7 @@
             font-size: 1.1em;
             line-height: 1.6;
             margin-bottom: 20px;
-            opacity: 0.9;
+            color: #f0f0f0;
         }
 
         .btn {
@@ -101,11 +105,19 @@
         }
 
         .puzzle-area {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border: 2px dashed rgba(255, 215, 0, 0.5);
+        }
+
+        .puzzle-area p {
+            color: #fff;
+        }
+
+        .puzzle-area strong {
+            color: #ffd700;
         }
 
         .input-group {
@@ -116,28 +128,83 @@
             width: 100%;
             padding: 15px;
             font-size: 1.1em;
-            border: none;
+            border: 2px solid #ddd;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             color: #333;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         input[type="text"]:focus, input[type="number"]:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
 
         .inventory {
             position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1em;
+            max-width: 300px;
+            width: 90vw;
+            z-index: 2000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: none;
+        }
+
+        .inventory.show {
+            display: block;
+            animation: inventoryShow 0.3s ease-out;
+        }
+
+        @keyframes inventoryShow {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .inventory-btn {
+            position: fixed;
             top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            max-width: 150px;
-            z-index: 1000;
+            right: 20px;
+            background: rgba(255, 215, 0, 0.9);
+            color: #333;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1500;
+            transition: all 0.3s ease;
+        }
+
+        .inventory-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 215, 0, 1);
+        }
+
+        .close-inventory {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
         }
 
         .inventory h4 {
@@ -173,7 +240,9 @@
         @media (max-width: 480px) {
             .container {
                 padding: 20px;
-                margin: 0 10px;
+                margin: 5px;
+                width: calc(100vw - 10px);
+                height: calc(100vh - 10px);
             }
             
             h1 {
@@ -185,12 +254,17 @@
                 font-size: 1em;
             }
             
+            .inventory-btn {
+                top: 15px;
+                right: 15px;
+                padding: 10px;
+                font-size: 1.1em;
+            }
+            
             .inventory {
-                top: 10px;
-                left: 10px;
-                font-size: 0.8em;
-                max-width: 120px;
-                padding: 8px;
+                padding: 20px;
+                width: 95vw;
+                max-width: none;
             }
             
             .progress-bar {
@@ -203,11 +277,45 @@
 </head>
 <body>
     <!-- Pantalla de Inicio -->
-    <div class="screen active" id="screen-start">
+    <div class="screen active" id="screen-greeting">
         <div class="container">
-            <h1>🏰 El Castillo Misterioso</h1>
-            <p>Te encuentras frente a un antiguo castillo. La puerta está cerrada y necesitas encontrar la manera de entrar...</p>
-            <button class="btn" onclick="goToScreen('screen-door')">Examinar la puerta</button>
+            <h1>🎂 !Felicidades Unai! 🎂</h1>
+            <p>Hola Unai, somos tu familia,</p>
+            <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
+            <p>Confórmate con la que tienes delante y los que viven por allí por donde se habla con palabras muy largas y difíciles.</p>
+            <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-greeting2">
+        <div class="container">
+            <h1>🎁 Tu Regalo 🎁</h1>
+            <p>Cómo tu regalo no te lo podemos dar porque no se puede tocar, tendrás que adivinarlo con una serie de juegos y acertijos que te hemos preparado.</p>
+            <p>¿Has acabado bien el curso en el colegio?</p>
+            <p>Porque si no, igual no los resuelves y nos quedamos con el regalo MUA JA JA JA JA.</p>
+            <button class="btn" onclick="goToScreen('screen-explain')">Siguiente</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-explain">
+        <div class="container">
+            <h1>ℹ️ Explicación ℹ️</h1>
+            <p>Cada serie de acertijos te darán acceso a una pista sobre el regalo.</p>
+            <p>Deberás guardarlas en tu inventario.</p>
+            <p> En cualquier momento puedes ver el inventario pulsando la 🎒 de arriba a la derecha.</p>
+            <button class="btn" onclick="goToScreen('screen-moving-button')">Vamos al lío</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-moving-button">
+        <div class="container">
+            <h1>Pulsa el botón para empezar</h1>
+            <div id="button-container" style="position: relative; width: 100%; height: 300px;">
+                <button class="btn" id="moving-start-btn" onclick="handleMovingButtonClick()" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 0.1s ease;">
+                    Start
+                </button>
+            </div>
+            <div id="taunt-message" style="font-size: 1.2em; margin-top: 20px; opacity: 0; transition: opacity 0.5s ease;"></div>
         </div>
     </div>
 
@@ -290,8 +398,12 @@
         </div>
     </div>
 
+    <!-- Botón del Inventario -->
+    <button class="inventory-btn" onclick="toggleInventory()">🎒</button>
+
     <!-- Inventario -->
-    <div class="inventory">
+    <div class="inventory" id="inventory">
+        <button class="close-inventory" onclick="toggleInventory()">×</button>
         <h4>Inventario</h4>
         <div id="inventory-items">
             <div class="inventory-item">Vacío</div>
@@ -304,10 +416,18 @@
     </div>
 
     <script>
-        let currentScreen = 'screen-start';
+        let currentScreen = 'screen-greeting';
         let inventory = [];
-        let progress = 0;
-        const totalSteps = 5; // Total de pasos para completar
+
+        let movingButtonInterval;
+        let buttonMoved = false;
+        let canClickMovingButton = false;
+
+
+        function toggleInventory() {
+            const inventory = document.getElementById('inventory');
+            inventory.classList.toggle('show');
+        }
 
         function goToScreen(screenId) {
             // Ocultar pantalla actual
@@ -321,17 +441,81 @@
                 const newScreen = document.getElementById(screenId);
                 newScreen.classList.add('active');
                 currentScreen = screenId;
+
+                if(screenId === 'screen-moving-button') {
+                    initMovingButtonScreen();
+                }
+
             }, 250);
 
-            updateProgress();
         }
+
+        function startMovingButton() {
+            const button = document.getElementById('moving-start-btn');
+            const container = document.getElementById('button-container');
+            const tauntMessage = document.getElementById('taunt-message');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+            const buttonDisplay = button.style.display;
+            
+            const maxX = container.offsetWidth - button.offsetWidth;
+            const maxY = container.offsetHeight - button.offsetHeight;
+
+            const move = () => {
+                    const randomX = Math.random() * maxX;
+                    const randomY = Math.random() * maxY;
+                    
+                    button.style.left = randomX + 'px';
+                    button.style.top = randomY + 'px';
+                    button.style.transform = 'none';
+            }
+            
+            movingButtonInterval = setInterval(move, 400);
+            
+            setTimeout(()=>{
+                tauntMessage.textContent = '¿Por qué no pulsas el botón? ¿Eres un paquete? 😏 Empezamos mal, voy a ponerlo más fácil a ver...';
+                tauntMessage.style.opacity = '1';
+                button.style.display='none';
+                clearInterval(movingButtonInterval);
+            }, 7000)
+
+            setTimeout(() => {
+                tauntMessage.style.opacity = '0';
+                movingButtonInterval = setInterval(move, 1500);
+                button.style.display=buttonDisplay;
+            }, 13000);
+        }
+
+        function handleMovingButtonClick() {
+            
+            const button = document.getElementById('moving-start-btn');
+            const tauntMessage = document.getElementById('taunt-message');
+            
+            clearInterval(movingButtonInterval);
+            
+            tauntMessage.textContent = '!!Hombre menos mal 🎉🎉!! ya le iba a dar yo, vamos adelante...';
+            tauntMessage.style.opacity = '1';
+            button.style.display='none';
+            
+            
+            setTimeout(() => {
+                goToScreen('screen-lobby'); 
+            }, 5000);
+            
+        }
+
+        // Función para iniciar el juego cuando se llegue a esta pantalla
+        function initMovingButtonScreen() {
+            startMovingButton();
+        }
+
+
 
         function checkDoorCode() {
             const code = document.getElementById('door-code').value;
             if (code == '423') { // 1523 - 100 = 423
                 alert('¡Código correcto! La puerta se abre...');
                 goToScreen('screen-lobby');
-                updateProgress();
             } else {
                 alert('Código incorrecto. Inténtalo de nuevo.');
                 document.getElementById('door-code').value = '';
@@ -342,7 +526,6 @@
             if (!inventory.includes(item)) {
                 inventory.push(item);
                 updateInventoryDisplay();
-                updateProgress();
                 alert(`Has añadido: ${item}`);
             } else {
                 alert('Ya tienes este objeto.');
@@ -364,18 +547,10 @@
             if (inventory.includes('Llave dorada')) {
                 alert('¡La llave funciona! Subes a la torre...');
                 goToScreen('screen-final');
-                updateProgress();
+                
             } else {
                 alert('Necesitas una llave para abrir esta puerta.');
             }
-        }
-
-        function updateProgress() {
-            const screens = ['screen-start', 'screen-door', 'screen-lobby', 'screen-library', 'screen-kitchen', 'screen-tower', 'screen-final'];
-            const currentIndex = screens.indexOf(currentScreen);
-            progress = Math.min((currentIndex / (screens.length - 1)) * 100, 100);
-            
-            document.getElementById('progress-fill').style.width = progress + '%';
         }
 
         function restartGame() {
@@ -393,7 +568,6 @@
             
             // Resetear displays
             updateInventoryDisplay();
-            updateProgress();
             document.getElementById('door-code').value = '';
         }
 
