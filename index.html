@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <title>Escape Room - Aventura</title>
     <style>
         * {
@@ -170,18 +171,19 @@
             animation: inventoryShow 0.3s ease-out;
         }
 
-        .avion-table, .avion-table2 {
+        .viaje-table,
+        .viaje-table2 {
             border-collapse: collapse;
             margin: 0 auto;
         }
 
-        .avion-table td {
+        .viaje-table td {
             border: 1px solid #ddd;
             text-align: center;
             padding: 3px 6px;
         }
 
-        .avion-table2 td {
+        .viaje-table2 td {
             text-align: left;
             padding: 3px;
         }
@@ -233,22 +235,44 @@
             font-size: 0.8em;
         }
 
-        .progress-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
+        #puzzle {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            background: #ffffff;
+            padding: 20px 0;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ffd700, #ff6b6b);
-            border-radius: 3px;
-            transition: width 0.5s ease;
+        .puzzle-piece {
+            width: 100%;
+            height: 30px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            background-size: contain;
+            /* Cambiar de cover a contain */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Añadir fondo para ver el contenedor */
         }
+
+        .puzzle-piece:hover {
+            border-color: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .puzzle-piece.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .puzzle-piece.correct {
+            border-color: #27ae60;
+            box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
+        }
+
+
+
 
         @media (max-width: 480px) {
             .container {
@@ -267,6 +291,16 @@
                 font-size: 1em;
             }
 
+            #puzzle {
+                grid-template-columns: 1fr;
+                gap: 0;
+            
+            }
+
+            .puzzle-piece {
+                height: 30px;
+            }
+
 
         }
     </style>
@@ -281,7 +315,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-avion-0')">Siguiente</button>
+            <button class="btn" onclick="goToScreen('screen-mapa-1')">Siguiente</button>
         </div>
     </div>
 
@@ -326,35 +360,35 @@
             <p>¡¡ Hombre menos mal !!!</p>
             <p>Pensé que no le dabas nunca 😆😆😆</p>
             <p>Y esto era lo fácil, veremos cómo se te da lo siguiente</p>
-            <button class="btn" onclick="goToScreen('screen-avion-0')">Empezamos...</button>
+            <button class="btn" onclick="goToScreen('screen-viaje-0')">Empezamos...</button>
         </div>
     </div>
 
-    <div class="screen" id="screen-avion-0">
+    <div class="screen" id="screen-viaje-0">
         <div class="container">
             <h1>Primera serie de acertijos</h1>
             <h1>Buscando la pista 1️⃣</h1>
-            <button class="btn" onclick="goToScreen('screen-avion-1')">Comprobar</button>
+            <button class="btn" onclick="goToScreen('screen-viaje-1')">Comprobar</button>
         </div>
     </div>
 
-    <div class="screen" id="screen-avion-1">
+    <div class="screen" id="screen-viaje-1">
         <div class="container">
             <p>¿Cuántos agujeros tiene esta camiseta? (no son 2)</p>
             <p><i>(no son 2)</i></p>
-            <img src="img/agujeros.jpeg" alt="agujeros" height="400" >
+            <img src="img/agujeros.jpeg" alt="agujeros" height="400">
             <p> </p>
             <div>
-                <input type="text" id="avion1-answer" placeholder="Escribe el número aquí">
+                <input type="text" id="viaje1-answer" placeholder="Escribe el número aquí">
             </div>
-            <button class="btn" onclick="checkScreenAvion1()">Comprobar</button>
+            <button class="btn" onclick="checkScreenViaje1()">Comprobar</button>
         </div>
     </div>
 
-    <div class="screen" id="screen-avion-2">
+    <div class="screen" id="screen-viaje-2">
         <div class="container">
 
-            <table class="avion-table2">
+            <table class="viaje-table2">
                 <tr>
                     <td style="background-color: red; width: 15px;"></td>
                     <td>➡️ ➡️ ⬇️ ⬇️ ⬇️ ⬅️ ⬇️ ⬇️ ⬅️ </td>
@@ -377,7 +411,7 @@
                 </tr>
             </table>
             <p> </p>
-            <table class="avion-table">
+            <table class="viaje-table">
                 <tr>
                     <td>3</td>
                     <td>7</td>
@@ -480,33 +514,55 @@
             </table>
             <p> </p>
             <div>
-                <input type="text" id="avion2-answer" placeholder="Escribe el código aquí">
+                <input type="text" id="viaje2-answer" placeholder="Escribe el código aquí">
             </div>
 
-            <button class="btn" onclick="checkScreenAvion2()">Comprobar</button>
+            <button class="btn" onclick="checkScreenViaje2()">Comprobar</button>
         </div>
     </div>
 
-    <div class="screen" id="screen-avion-3">
+    <div class="screen" id="screen-viaje-3">
         <div class="container">
-            <img src="img/simbols.jpg" alt="Símbolos" height="400" >
+            <img src="img/simbols.jpg" alt="Símbolos" height="400">
             <p> </p>
             <div>
-                <img src="img/avion-a.jpg" alt="Letra" height="60" >
-                <img src="img/avion-v.jpg" alt="Letra" height="60" >
-                <img src="img/avion-i.jpg" alt="Letra" height="60" >
-                <img src="img/avion-o.jpg" alt="Letra" height="60" >
-                <img src="img/avion-n.jpg" alt="Letra" height="60" >
+                <img src="img/viaje-v.jpg" alt="Letra" height="60">
+                <img src="img/viaje-i.jpg" alt="Letra" height="60">
+                <img src="img/viaje-a.jpg" alt="Letra" height="60">
+                <img src="img/viaje-j.jpg" alt="Letra" height="60">
+                <img src="img/viaje-e.jpg" alt="Letra" height="60">
             </div>
             <p> </p>
             <div>
-                <input type="text" id="avion3-answer" placeholder="Escribe el resultado aquí">
+                <input type="text" id="viaje3-answer" placeholder="Escribe el resultado aquí">
             </div>
-            <button class="btn" onclick="checkScreenAvion3()">Comprobar</button>
+            <button class="btn" onclick="checkScreenViaje3()">Comprobar</button>
         </div>
     </div>
 
-    
+    <div class="screen" id="screen-mapa-1">
+        <div class="container">
+            <div id="puzzle">
+                <div class="puzzle-piece" data-order="1" style="background-image: url('img/mapa-01.png')"></div>
+                <div class="puzzle-piece" data-order="2" style="background-image: url('img/mapa-02.png')"></div>
+                <div class="puzzle-piece" data-order="3" style="background-image: url('img/mapa-03.png')"></div>
+                <div class="puzzle-piece" data-order="4" style="background-image: url('img/mapa-04.png')"></div>
+                <div class="puzzle-piece" data-order="5" style="background-image: url('img/mapa-05.png')"></div>
+                <div class="puzzle-piece" data-order="6" style="background-image: url('img/mapa-06.png')"></div>
+                <div class="puzzle-piece" data-order="7" style="background-image: url('img/mapa-07.png')"></div>
+                <div class="puzzle-piece" data-order="8" style="background-image: url('img/mapa-08.png')"></div>
+                <div class="puzzle-piece" data-order="9" style="background-image: url('img/mapa-09.png')"></div>
+                <div class="puzzle-piece" data-order="10" style="background-image: url('img/mapa-10.png')"></div>
+                <div class="puzzle-piece" data-order="11" style="background-image: url('img/mapa-11.png')"></div>
+                <div class="puzzle-piece" data-order="12" style="background-image: url('img/mapa-12.png')"></div>
+                <div class="puzzle-piece" data-order="13" style="background-image: url('img/mapa-13.png')"></div>
+                <div class="puzzle-piece" data-order="14" style="background-image: url('img/mapa-14.png')"></div>
+            </div>
+            <button class="btn" onclick="checkScreenViaje3()">Comprobar</button>
+        </div>
+    </div>
+
+
 
 
     <!-- Inventario -->
@@ -542,6 +598,10 @@
 
                 if (screenId === 'screen-moving-button') {
                     initMovingButtonScreen();
+                }
+
+                if (screenId === 'screen-mapa-1') {
+                    initMapa1();
                 }
 
             }, 250);
@@ -601,42 +661,79 @@
             startMovingButton();
         }
 
-        function checkScreenAvion1() {
-            const answerInput = document.getElementById('avion1-answer');
+        function checkScreenViaje1() {
+            const answerInput = document.getElementById('viaje1-answer');
             const answer = answerInput.value.trim();
 
             if (answer === '8') {
                 alert('¡Correcto!');
-                goToScreen('screen-avion-2');
+                goToScreen('screen-viaje-2');
             } else {
                 alert('Respuesta incorrecta. Inténtalo de nuevo.');
             }
         }
 
-        function checkScreenAvion2() {
-            const answerInput = document.getElementById('avion2-answer');
+        function checkScreenViaje2() {
+            const answerInput = document.getElementById('viaje2-answer');
             const answer = answerInput.value.trim();
 
             if (answer === '30825') {
                 alert('¡Correcto!');
-                goToScreen('screen-avion-3');
+                goToScreen('screen-viaje-3');
             } else {
                 alert('Respuesta incorrecta. Inténtalo de nuevo.');
             }
         }
 
-        function checkScreenAvion3() {
-            const answerInput = document.getElementById('avion3-answer');
+        function checkScreenViaje3() {
+            const answerInput = document.getElementById('viaje3-answer');
             const answer = answerInput.value.trim();
 
-            if (answer.toLowerCase() === 'avion') {
+            if (answer.toLowerCase() === 'viaje') {
                 alert('Has encontrado la primera pista!');
-                addToInventory('Pista 1: AVION');
-                goToScreen('screen-avion-3');
+                addToInventory('Pista 1: Viaje');
+                goToScreen('screen-viaje-3');
             } else {
                 alert('A tí te parece que esta palabra tiene sentido? Inténtalo de nuevo que te meto.');
             }
         }
+
+
+        let puzzleSortable;
+
+        function initPuzzle() {
+            const puzzle = document.getElementById('puzzle');
+
+            // Desordenar las piezas al inicio
+            const pieces = Array.from(puzzle.children);
+            shuffleArray(pieces);
+            pieces.forEach(piece => puzzle.appendChild(piece));
+
+            // Inicializar Sortable
+            puzzleSortable = Sortable.create(puzzle, {
+                animation: 150,
+                ghostClass: 'dragging',
+                chosenClass: 'chosen',
+                onStart: function (evt) {
+                    evt.item.classList.add('dragging');
+                },
+                onEnd: function (evt) {
+                    evt.item.classList.remove('dragging');
+                }
+            });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function initMapa1() {
+            initPuzzle();
+        }
+
 
 
         function addToInventory(item) {

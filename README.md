@@ -24,7 +24,7 @@
 
 
 
-* Viaje - Acertijo - Colores - Codigo símbolos
+* Viaje - Camiseta - Colores - Codigo símbolos
 * Mami - Puzzle - Mapa - Mami
 * Avión - Números 3 imagen - Espejo - Cesar - Avión
 * Portugal - Preguntas - Localización - QR - Canción
