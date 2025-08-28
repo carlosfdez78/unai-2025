@@ -308,7 +308,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-mapa-1')">Siguiente</button>
+            <button class="btn" onclick="goToScreen('screen-mapa-0')">Siguiente</button>
         </div>
     </div>
 
@@ -361,7 +361,7 @@
         <div class="container">
             <h1>Primera serie de acertijos</h1>
             <h1>Buscando la pista 1️⃣</h1>
-            <button class="btn" onclick="goToScreen('screen-viaje-1')">Comprobar</button>
+            <button class="btn" onclick="goToScreen('screen-viaje-1')">A por ellos</button>
         </div>
     </div>
 
@@ -533,6 +533,14 @@
         </div>
     </div>
 
+    <div class="screen" id="screen-mapa-0">
+        <div class="container">
+            <h1>Segunda serie de acertijos</h1>
+            <h1>Buscando la pista 2️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-mapa-1')">A por ellos</button>
+        </div>
+    </div>
+
     <div class="screen" id="screen-mapa-1">
         <div class="container">
             <div id="puzzle">
@@ -551,10 +559,20 @@
                 <img class="puzzle-piece" data-order="13" src="img/mapa-13.png">
                 <img class="puzzle-piece" data-order="14" src="img/mapa-14.png">
             </div>
-            <button class="btn" onclick="checkScreenViaje3()">Comprobar</button>
+            <button class="btn" onclick="goToScreen('screen-mapa-2')">Encontrado</button>
         </div>
     </div>
 
+    <div class="screen" id="screen-mapa-2">
+        <div class="container">
+            <p>¿A quién has encontrado?</p>
+            <p> </p>
+            <div>
+                <input type="text" id="mapa2-answer" placeholder="Escribe aquí">
+            </div>
+            <button class="btn" onclick="checkScreenMapa2()">Comprobar</button>
+        </div>
+    </div>
 
 
 
@@ -685,7 +703,7 @@
             if (answer.toLowerCase() === 'viaje') {
                 alert('Has encontrado la primera pista!');
                 addToInventory('Pista 1: Viaje');
-                goToScreen('screen-viaje-3');
+                goToScreen('screen-mapa-0');
             } else {
                 alert('A tí te parece que esta palabra tiene sentido? Inténtalo de nuevo que te meto.');
             }
@@ -725,6 +743,19 @@
 
         function initMapa1() {
             initPuzzle();
+        }
+
+        function checkScreenMapa2() {
+            const answerInput = document.getElementById('mapa2-answer');
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (answer === 'ines' || answer === 'inés' || answer === 'mami') {
+                alert('¡Correcto! Has encontrado la segunda pista.');
+                addToInventory('Pista 2: Mami');
+                goToScreen('screen-mapa-2');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
         }
 
 
