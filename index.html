@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <title>Escape Room - Aventura</title>
     <style>
         * {
@@ -264,6 +265,31 @@
             box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
         }
 
+        .cesar-letters span {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: inline-block;
+            background: #fff;
+            color: #333;
+        }
+
+        .tabla-portugal {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .tabla-portugal tr {
+            border-top: 1px solid #ddd;
+        }
+
+        .tabla-portugal td {
+            text-align: left;
+            vertical-align: bottom;
+            padding: 20px 0;
+        }
+
 
 
 
@@ -287,11 +313,7 @@
             #puzzle {
                 grid-template-columns: 1fr;
                 gap: 0;
-            
-            }
 
-            .puzzle-piece {
-                /* height: 30px; */
             }
 
 
@@ -308,7 +330,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-mapa-0')">Siguiente</button>
+            <button class="btn" onclick="goToScreen('screen-portugal-0')">Siguiente</button>
         </div>
     </div>
 
@@ -574,6 +596,119 @@
         </div>
     </div>
 
+    <div class="screen" id="screen-avion-0">
+        <div class="container">
+            <h1>Tercera serie de acertijos</h1>
+            <h1>Buscando la pista 3️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-avion-1')">A por ellos</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-avion-1">
+        <div class="container">
+            <img src="img/treses.jpg" alt="treses" width="100%">
+            <p>¿Cuántos 3 ves en la imagen?</p>
+            <div>
+                <input type="text" id="avion1-answer" placeholder="Escribe el resultado aquí">
+            </div>
+            <button class="btn" onclick="checkScreenAvion1()">Comprobar</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-avion-2">
+        <div class="container">
+            <p>Para encriptar la palabra de abajo del todo se ha utilizado Cifrado Cesar (+4).</p>
+            <p>¿En qué consiste? lo explica la siguiente imagen</p>
+            <img src="img/cesar.png" alt="Cifrado Cesar" height="300">
+            <p></p>
+            <p class="cesar-letters">
+                <span>E</span>
+                <span>Z</span>
+                <span>M</span>
+                <span>S</span>
+                <span>Q</span>
+            </p>
+
+            <div>
+                <input type="text" id="avion2-answer" placeholder="Escribe el resultado aquí">
+            </div>
+            <button class="btn" onclick="checkScreenAvion2()">Comprobar</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-portugal-0">
+        <div class="container">
+            <h1>Cuarta serie de acertijos</h1>
+            <h1>Buscando la pista 4️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-portugal-1')">A por ellos</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-portugal-1">
+        <div class="container">
+            <p>¿Cuáles de las siguientes afirmaciones son correctas?</p>
+            <table class="tabla-portugal">
+                <tr>
+                    <td>El abuelo Antonio condujo un camión sin carnet</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="q1"
+                                onchange="saveAnswer(1, this.checked)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ivo y Nolan se han ido a vivir un barrio que se llama Subëniwajên</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="q1"
+                                onchange="saveAnswer(2, this.checked)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>La bisa tenía tu misma edad en 1939</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="q1"
+                                onchange="saveAnswer(3, this.checked)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="q1"
+                                onchange="saveAnswer(4, this.checked)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Carel nació sacando el dedo de la palabrota</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="q1"
+                                onchange="saveAnswer(5, this.checked)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Todos los primos sumáis 4 años menos que la abuela María</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="q1"
+                                onchange="saveAnswer(6, this.checked)">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <button class="btn" onclick="checkScreenPortugal1()">Comprobar</button>
+        </div>
+    </div>
+
+
 
 
     <!-- Inventario -->
@@ -758,6 +893,55 @@
             }
         }
 
+        function checkScreenAvion1() {
+            const answerInput = document.getElementById('avion1-answer');
+            const answer = answerInput.value.trim();
+
+            if (answer === '19') {
+                alert('¡Correcto!');
+                goToScreen('screen-avion-2');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        function checkScreenAvion2() {
+            const answerInput = document.getElementById('avion2-answer');
+            const answer = answerInput.value.trim();
+
+            if (answer === 'avion') {
+                alert('¡Correcto! Has encontrado la tercera pista.');
+                addToInventory('Pista 3: Avión');
+                goToScreen('screen-portugal-0');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        let answers = {};
+
+        function saveAnswer(question, isYes) {
+            console.log(`Pregunta ${question}: ${isYes ? 'Sí' : 'No'}`);
+            answers[question] = isYes;
+        }
+
+        function checkScreenPortugal1() {
+
+            
+            const correct = { 1: true, 2: false, 3: true, 4: false, 5: true, 6: true };
+            let score = 0;
+
+            for (let q in correct) {
+                if (answers[q]||false === correct[q]) score++;
+            }
+
+            if (score === 6) {
+                alert('¡Correcto!');
+                goToScreen('screen-siguiente');
+            } else {
+                alert('Algo falla amiguete. Revisa las respuestas');
+            }
+        }
 
 
         function addToInventory(item) {
