@@ -907,7 +907,7 @@
 
         function checkScreenAvion2() {
             const answerInput = document.getElementById('avion2-answer');
-            const answer = answerInput.value.trim();
+            const answer = answerInput.value.toLowerCase().trim();
 
             if (answer === 'avion') {
                 alert('¡Correcto! Has encontrado la tercera pista.');
