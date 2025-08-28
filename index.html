@@ -326,15 +326,23 @@
             <p>¡¡ Hombre menos mal !!!</p>
             <p>Pensé que no le dabas nunca 😆😆😆</p>
             <p>Y esto era lo fácil, veremos cómo se te da lo siguiente</p>
-            <button class="btn" onclick="goToScreen('screen-avion-1')">Empezamos...</button>
+            <button class="btn" onclick="goToScreen('screen-avion-0')">Empezamos...</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-avion-0">
+        <div class="container">
+            <h1>Primera serie de acertijos</h1>
+            <h1>Buscando la pista 1️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-avion-1')">Comprobar</button>
         </div>
     </div>
 
     <div class="screen" id="screen-avion-1">
         <div class="container">
-            <h1>Buscando la pista 1️⃣</h1>
-            <p>Cuántos agujeros tiene esta camiseta? (no son 2)</p>
-            <img src="img/agujeros.jpeg" alt="agujeros" height="200" >
+            <p>¿Cuántos agujeros tiene esta camiseta? (no son 2)</p>
+            <p><i>(no son 2)</i></p>
+            <img src="img/agujeros.jpeg" alt="agujeros" height="400" >
             <p> </p>
             <div>
                 <input type="text" id="avion1-answer" placeholder="Escribe el número aquí">
@@ -594,7 +602,7 @@
         }
 
         function checkScreenAvion1() {
-            const answerInput = document.getElementById('avion2-answer');
+            const answerInput = document.getElementById('avion1-answer');
             const answer = answerInput.value.trim();
 
             if (answer === '8') {
