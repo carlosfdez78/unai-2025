@@ -511,8 +511,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-oporto-1')">Atajo</button>
-            <button class="btn" onclick="goToScreen('screen-puente-0')">Puente</button>
+            <button class="btn" onclick="goToScreen('screen-actividad-1')">Atajo</button>
         </div>
     </div>
 
@@ -1089,10 +1088,9 @@
                 if (screenId === 'screen-puente-1') {
                     setTimeout(() => {
                         const pista = document.getElementById('pista-puente');
-                        pista.textContent = 'Pista: Prueba a ponerte el movil en la nariz';
+                        pista.textContent = 'Pista: Prueba a ponerte el movil horizontal delante de la nariz';
                     }, 15000);
                 }
-
 
                 if (screenId === 'screen-mapa-1') {
                     initMapa1();
@@ -1439,7 +1437,7 @@
         // Configuración de audio para morse
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const morseFrequency = 800; // Hz - tono típico de morse
-        const wpm = 10; // Palabras por minuto
+        const wpm = 5; // Palabras por minuto
         
         // Cálculo de tiempos en milisegundos (estándar morse)
         const dotDuration = 1200 / wpm; // Duración de un punto
