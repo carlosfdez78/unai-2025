@@ -915,21 +915,18 @@
 
     <div class="screen" id="screen-oporto-1">
         <div class="container">
+            <p>Selecciona un filtro</p>
             <select id="color-select" onchange="applyColorFilter()">
                 <option value="">Selecciona un filtro</option>
                 <option value="#000080">Azul marino</option>
                 <option value="#008000">Verde</option>
-                <option value="#800080">Púrpura</option>
                 <option value="#FF8C00">Naranja</option>
                 <option value="#4169E1">Azul real</option>
                 <option value="#32CD32">Verde lima</option>
                 <option value="#00CED1">Turquesa oscuro</option>
-                <option value="#9400D3">Violeta</option>
                 <option value="#00FF7F">Verde primavera</option>
                 <option value="#00BFFF">Azul cielo</option>
                 <option value="#2E8B57">Verde mar</option>
-                <option value="#DA70D6">Orquídea</option>
-                <option value="#FF0000">Rojo</option>
                 <option value="#1E90FF">Azul dodger</option>
                 <option value="#FFD700">Dorado</option>
                 <option value="#ADFF2F">Verde amarillento</option>
@@ -945,10 +942,8 @@
                 <option value="#FFFFE0">Amarillo claro</option>
                 <option value="#00FF00">Verde lima brillante</option>
                 <option value="#FAF0E6">Lino</option>
-                <option value="#FF00FF">Magenta</option>
                 <option value="#66CDAA">Aguamarina</option>
                 <option value="#0000CD">Azul medio</option>
-                <option value="#BA55D3">Orquídea medio</option>
                 <option value="#9370DB">Púrpura medio</option>
                 <option value="#3CB371">Verde mar medio</option>
                 <option value="#7B68EE">Pizarra azul</option>
@@ -963,20 +958,19 @@
                 <option value="#FFFF00">Amarillo</option>
                 <option value="#00FFFF">Cian</option>
                 <option value="#8A2BE2">Azul violeta</option>
-                <option value="#A52A2A">Marrón</option>
                 <option value="#5F9EA0">Azul cadete</option>
                 <option value="#7FFF00">Verde chartreuse</option>
+                <option value="#FF0000">Rojo</option>
                 <option value="#6B8E23">Verde oliva</option>
-                <option value="#FF7F50">Salmón</option>
                 <option value="#BDB76B">Caqui oscuro</option>
             </select>
             <div class="image-container">
                 <img id="mystery-image" src="img/oporto.jpg" alt="Misterio">
                 <div id="color-overlay"></div>
             </div>
-            <p>Pista: En 2022, Pixar hizo una película de animación que dirigió Domee Shi.</p>
+            <p>Pista: Para saber el nombre del filtro. En 2022, Pixar hizo una película de animación que dirigió Domee Shi.</p>
             <div>
-                <input type="text" id="oporto1-answer" placeholder="Aquí debería ir una ciudad">
+                <input type="text" id="oporto1-answer" placeholder="Ciudad escondida en las letras">
             </div>
             <button class="btn" onclick="checkScreenOporto1()">Comprobar</button>
         </div>
@@ -995,7 +989,7 @@
             <div style="padding: 5px; background-color: #fff;">
                 <img src="img/puente.png" alt="puente" height="500">
             </div>
-            <p> </p>
+            <p id="pista-puente"></p>
             <div>
                 <input type="text" id="puente1-answer" placeholder="Escribe aquí el resultado">
             </div>
@@ -1091,6 +1085,14 @@
                 if (screenId === 'screen-moving-button') {
                     initMovingButtonScreen();
                 }
+
+                if (screenId === 'screen-puente-1') {
+                    setTimeout(() => {
+                        const pista = document.getElementById('pista-puente');
+                        pista.textContent = 'Pista: Prueba a ponerte el movil en la nariz';
+                    }, 500);
+                }
+
 
                 if (screenId === 'screen-mapa-1') {
                     initMapa1();
