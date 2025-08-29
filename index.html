@@ -391,7 +391,8 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-oporto-0')">Siguiente</button>
+            <button class="btn" onclick="goToScreen('screen-mapa-0')">Mapa</button>
+            <button class="btn" onclick="goToScreen('screen-puente-0')">Puente</button>
         </div>
     </div>
 
@@ -627,20 +628,20 @@
     <div class="screen" id="screen-mapa-1">
         <div class="container">
             <div id="puzzle">
-                <img class="puzzle-piece" data-order="1" src="img/mapa-01.png">
-                <img class="puzzle-piece" data-order="2" src="img/mapa-02.png">
-                <img class="puzzle-piece" data-order="3" src="img/mapa-03.png">
-                <img class="puzzle-piece" data-order="4" src="img/mapa-04.png">
-                <img class="puzzle-piece" data-order="5" src="img/mapa-05.png">
-                <img class="puzzle-piece" data-order="6" src="img/mapa-06.png">
-                <img class="puzzle-piece" data-order="7" src="img/mapa-07.png">
-                <img class="puzzle-piece" data-order="8" src="img/mapa-08.png">
+                <img class="puzzle-piece" data-order="1" src="img/easy-mapa-01.png">
+                <img class="puzzle-piece" data-order="2" src="img/easy-mapa-02.png">
+                <img class="puzzle-piece" data-order="3" src="img/easy-mapa-03.png">
+                <img class="puzzle-piece" data-order="4" src="img/easy-mapa-04.png">
+                <img class="puzzle-piece" data-order="5" src="img/easy-mapa-05.png">
+                <img class="puzzle-piece" data-order="6" src="img/easy-mapa-06.png">
+                <img class="puzzle-piece" data-order="7" src="img/easy-mapa-07.png">
+                <!-- <img class="puzzle-piece" data-order="8" src="img/mapa-08.png">
                 <img class="puzzle-piece" data-order="9" src="img/mapa-09.png">
                 <img class="puzzle-piece" data-order="10" src="img/mapa-10.png">
                 <img class="puzzle-piece" data-order="11" src="img/mapa-11.png">
                 <img class="puzzle-piece" data-order="12" src="img/mapa-12.png">
                 <img class="puzzle-piece" data-order="13" src="img/mapa-13.png">
-                <img class="puzzle-piece" data-order="14" src="img/mapa-14.png">
+                <img class="puzzle-piece" data-order="14" src="img/mapa-14.png"> -->
             </div>
             <button class="btn" onclick="goToScreen('screen-mapa-2')">Encontrado</button>
         </div>
@@ -863,9 +864,19 @@
 
     <div class="screen" id="screen-puente-0">
         <div class="container">
-            <h1>Quinta serie de acertijos</h1>
-            <h1>Buscando la pista 5️⃣</h1>
-            <button class="btn" onclick="goToScreen('screen-oporto-1')">A por ellos</button>
+            <h1>Sexta serie de acertijos</h1>
+            <h1>Buscando la pista 6️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-puente-1')">A por ellos</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-puente-1">
+        <div class="container">
+            <img src="img/puente.png" alt="puente" width="100%">
+            <div>
+                <input type="text" id="puente1-answer" placeholder="Qué ves en la imagen?">
+            </div>
+            <button class="btn" onclick="checkScreenPuente1()">A por ellos</button>
         </div>
     </div>
 
@@ -1132,6 +1143,18 @@
                 alert('¡Correcto! Has encontrado la quinta pista.');
                 addToInventory('Pista 5: Oporto');
                 goToScreen('screen-puente-0');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        function checkScreenPuente1() {
+            const answerInput = document.getElementById('puente1-answer');
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (answer === 'puente') {
+                alert('¡Correcto!');
+                goToScreen('screen-puente-2');
             } else {
                 alert('Respuesta incorrecta. Inténtalo de nuevo.');
             }
