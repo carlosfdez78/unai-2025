@@ -287,7 +287,57 @@
         .tabla-portugal td {
             text-align: left;
             vertical-align: bottom;
-            padding: 20px 0;
+            padding: 10px 0;
+        }
+
+        .coords {
+            font-size: small;
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: blue;
+        }
+
+        .filter-controls {
+            margin: 20px 0;
+        }
+
+        #color-select {
+            width: 300px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #mystery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #color-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            opacity: 0.88;
+            pointer-events: none;
+            transition: background-color 0.3s ease;
         }
 
 
@@ -316,6 +366,17 @@
 
             }
 
+            #color-select {
+                width: 100%;
+                font-size: 0.9em;
+            }
+
+            .filter-controls {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
 
         }
     </style>
@@ -330,7 +391,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-portugal-0')">Siguiente</button>
+            <button class="btn" onclick="goToScreen('screen-oporto-0')">Siguiente</button>
         </div>
     </div>
 
@@ -658,7 +719,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Ivo y Nolan se han ido a vivir un barrio que se llama Subëniwajên</td>
+                    <td>Julia y Martina nacieron a la vez, pero luego Martina cumplió años más lento.</td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="q1"
@@ -666,6 +727,7 @@
                         </div>
                     </td>
                 </tr>
+
                 <tr>
                     <td>La bisa tenía tu misma edad en 1939</td>
                     <td>
@@ -676,7 +738,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>Ivo y Nolan se han ido a vivir un barrio que se llama Subëniwajên</td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="q1"
@@ -708,8 +770,104 @@
         </div>
     </div>
 
+    <div class="screen" id="screen-portugal-2">
+        <div class="container">
+            <p>¿Cuál es el país de origen de esta canción?</p>
+            <p class="coords">41.05807040022177, -3.529525601174143</p>
+            <p>Y dirás ¿qué canción? pues aquí tienes una pista:</p>
+            <img src="img/brujula.jpg" alt="brujula" height="150">
+            <p> </p>
+            <div>
+                <input type="text" id="portugal2-answer" placeholder="Escribe el país aquí">
+            </div>
+            <button class="btn" onclick="checkScreenPortugal2()">Comprobar</button>
+        </div>
+    </div>
 
+    <div class="screen" id="screen-oporto-0">
+        <div class="container">
+            <h1>Quinta serie de acertijos</h1>
+            <h1>Buscando la pista 5️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-oporto-1')">A por ellos</button>
+        </div>
+    </div>
 
+    <div class="screen" id="screen-oporto-1">
+        <div class="container">
+            <select id="color-select" onchange="applyColorFilter()">
+                <option value="">Selecciona un filtro</option>
+                <option value="#000080">Azul marino</option>
+                <option value="#008000">Verde</option>
+                <option value="#800080">Púrpura</option>
+                <option value="#FF8C00">Naranja</option>
+                <option value="#4169E1">Azul real</option>
+                <option value="#32CD32">Verde lima</option>
+                <option value="#00CED1">Turquesa oscuro</option>
+                <option value="#9400D3">Violeta</option>
+                <option value="#00FF7F">Verde primavera</option>
+                <option value="#00BFFF">Azul cielo</option>
+                <option value="#2E8B57">Verde mar</option>
+                <option value="#DA70D6">Orquídea</option>
+                <option value="#FF0000">Rojo</option>
+                <option value="#1E90FF">Azul dodger</option>
+                <option value="#FFD700">Dorado</option>
+                <option value="#ADFF2F">Verde amarillento</option>
+                <option value="#4682B4">Azul acero</option>
+                <option value="#D2691E">Chocolate</option>
+                <option value="#6495ED">Azul maíz</option>
+                <option value="#FFF8DC">Beige</option>
+                <option value="#90EE90">Verde claro</option>
+                <option value="#20B2AA">Verde azulado</option>
+                <option value="#87CEEB">Azul cielo claro</option>
+                <option value="#778899">Gris pizarra</option>
+                <option value="#B0C4DE">Azul acero claro</option>
+                <option value="#FFFFE0">Amarillo claro</option>
+                <option value="#00FF00">Verde lima brillante</option>
+                <option value="#FAF0E6">Lino</option>
+                <option value="#FF00FF">Magenta</option>
+                <option value="#66CDAA">Aguamarina</option>
+                <option value="#0000CD">Azul medio</option>
+                <option value="#BA55D3">Orquídea medio</option>
+                <option value="#9370DB">Púrpura medio</option>
+                <option value="#3CB371">Verde mar medio</option>
+                <option value="#7B68EE">Pizarra azul</option>
+                <option value="#00FA9A">Verde primavera medio</option>
+                <option value="#48D1CC">Turquesa medio</option>
+                <option value="#191970">Azul medianoche</option>
+                <option value="#F5FFFA">Crema menta</option>
+                <option value="#000000">Negro</option>
+                <option value="#FFFFFF">Blanco</option>
+                <option value="#808080">Gris</option>
+                <option value="#C0C0C0">Plata</option>
+                <option value="#FFFF00">Amarillo</option>
+                <option value="#00FFFF">Cian</option>
+                <option value="#8A2BE2">Azul violeta</option>
+                <option value="#A52A2A">Marrón</option>
+                <option value="#5F9EA0">Azul cadete</option>
+                <option value="#7FFF00">Verde chartreuse</option>
+                <option value="#6B8E23">Verde oliva</option>
+                <option value="#FF7F50">Salmón</option>
+                <option value="#BDB76B">Caqui oscuro</option>
+            </select>
+            <div class="image-container">
+                <img id="mystery-image" src="img/oporto.jpg" alt="Misterio">
+                <div id="color-overlay"></div>
+            </div>
+            <p>Pista: En 2022, Pixar hizo una película de animación que dirigió Domee Shi.</p>
+            <div>
+                <input type="text" id="oporto1-answer" placeholder="Aquí debería ir una ciudad">
+            </div>
+            <button class="btn" onclick="checkScreenOporto1()">Comprobar</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-puente-0">
+        <div class="container">
+            <h1>Quinta serie de acertijos</h1>
+            <h1>Buscando la pista 5️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-oporto-1')">A por ellos</button>
+        </div>
+    </div>
 
     <!-- Inventario -->
     <div class="inventory" id="inventory">
@@ -921,25 +1079,61 @@
         let answers = {};
 
         function saveAnswer(question, isYes) {
-            console.log(`Pregunta ${question}: ${isYes ? 'Sí' : 'No'}`);
             answers[question] = isYes;
         }
 
         function checkScreenPortugal1() {
 
-            
+
             const correct = { 1: true, 2: false, 3: true, 4: false, 5: true, 6: true };
             let score = 0;
 
             for (let q in correct) {
-                if (answers[q]||false === correct[q]) score++;
+                if (answers[q] || false === correct[q]) score++;
             }
 
             if (score === 6) {
                 alert('¡Correcto!');
-                goToScreen('screen-siguiente');
+                goToScreen('screen-portugal-2');
             } else {
                 alert('Algo falla amiguete. Revisa las respuestas');
+            }
+        }
+
+        function checkScreenPortugal2() {
+            const answerInput = document.getElementById('portugal2-answer');
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (answer === 'portugal') {
+                alert('¡Correcto! Has encontrado la cuarta pista.');
+                addToInventory('Pista 4: Portugal');
+                goToScreen('screen-oporto-0');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        function applyColorFilter() {
+            const select = document.getElementById('color-select');
+            const overlay = document.getElementById('color-overlay');
+
+            if (select.value) {
+                overlay.style.backgroundColor = select.value;
+            } else {
+                overlay.style.backgroundColor = 'transparent';
+            }
+        }
+
+        function checkScreenOporto1() {
+            const answerInput = document.getElementById('oporto1-answer');
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (answer === 'oporto') {
+                alert('¡Correcto! Has encontrado la quinta pista.');
+                addToInventory('Pista 5: Oporto');
+                goToScreen('screen-puente-0');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
             }
         }
 

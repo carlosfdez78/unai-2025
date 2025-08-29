@@ -603,7 +603,10 @@
        width="32.3619"
        height="13.807745"
        x="33.440632"
-       y="252.85431" />
+       y="252.85431"
+       inkscape:export-filename="../img/easy-mapa-07.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <ellipse
        style="fill:none;stroke:#040404;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:5.7;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
        id="path2633"
@@ -721,11 +724,6 @@
        y="3.5533648" />
     <path
        style="fill:#000000;stroke:#000000;stroke-width:5.6693;stroke-linejoin:round;stroke-miterlimit:5.7;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       d="M 16.414493,526.75602 V 16.414493 H 372.31056 728.20662 V 526.75602 1037.0975 H 372.31056 16.414493 Z M 712.29162,903.17019 c 0.54485,-64.63206 0.99112,-286.12079 0.99169,-492.19716 l 10e-4,-374.68431 -32.45593,-0.980093 C 662.97766,34.769575 509.2037,34.326887 339.10851,34.324874 L 29.844533,34.321214 V 349.67986 c 0,173.44725 -0.446715,395.04048 -0.992702,492.42942 l -0.992703,177.07072 202.070242,0.3839 c 111.13864,0.2111 264.91305,0.5493 341.72093,0.7515 l 139.65067,0.3676 z"
-       id="path3430"
-       transform="scale(0.26458333)" />
-    <path
-       style="fill:#000000;stroke:#000000;stroke-width:5.6693;stroke-linejoin:round;stroke-miterlimit:5.7;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
        d="m 35.81344,852.06143 v -14.92227 h 10.445587 10.445587 v 14.92227 14.92227 H 46.259027 35.81344 Z"
        id="path3432"
        transform="scale(0.26458333)" />
@@ -748,11 +746,21 @@
        style="fill:none;stroke:#ffffff;stroke-width:0.001;stroke-linejoin:round;stroke-miterlimit:5.7;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect3561"
        width="199.99901"
-       height="19.999001"
+       height="39.999001"
        x="0.00050000002"
-       y="160.0005"
-       inkscape:export-filename="mapa-09.png"
+       y="240.0005"
+       inkscape:export-filename="../img/easy-map-07.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#ffff00;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.247059"
+       d="M 222.72156,268.20497 396.44163,10.783446"
+       id="path5461"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:5.6693;stroke-linejoin:round;stroke-miterlimit:5.7;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 16.414493,526.75602 V 16.414493 H 372.31056 728.20662 V 526.75602 1037.0975 H 372.31056 16.414493 Z M 712.29162,903.17019 c 0.54485,-64.63206 0.99112,-286.12079 0.99169,-492.19716 l 10e-4,-374.68431 -32.45593,-0.980093 C 662.97766,34.769575 509.2037,34.326887 339.10851,34.324874 L 29.844533,34.321214 V 349.67986 c 0,173.44725 -0.446715,395.04048 -0.992702,492.42942 l -0.992703,177.07072 202.070242,0.3839 c 111.13864,0.2111 264.91305,0.5493 341.72093,0.7515 l 139.65067,0.3676 z"
+       id="path3430"
+       transform="scale(0.26458333)" />
   </g>
 </svg>
