@@ -340,6 +340,110 @@
             transition: background-color 0.3s ease;
         }
 
+        .morse-table {
+            /* width: 100%;
+            border-collapse: separate;
+            border-spacing: 2px;
+            margin: 20px 0; */
+        }
+
+        .word-section {
+            margin: 20px 0;
+        }
+
+        .word-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .char-cell {
+            text-align: center;
+            vertical-align: top;
+            width: auto;
+            padding: 5px;
+        }
+
+        input.char-input {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            display: block;
+            margin: 0 auto 8px auto;
+            padding: 2px;
+        }
+
+        .space-input {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px dashed #ffc107;
+        }
+
+        .speaker-btn {
+            width: 45px;
+            height: 35px;
+            background: #667eea;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto 8px auto;
+        }
+
+        .speaker-btn:hover {
+            background: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        .speaker-btn:active {
+            background: #4c51bf;
+            transform: scale(0.95);
+        }
+
+        .morse-display {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            text-align: center;
+            min-height: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
+            padding: 4px;
+            margin: 0 auto;
+            display: block;
+            max-width: 60px;
+        }
+
+        .playing {
+            background: #48bb78 !important;
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        
+
 
 
 
@@ -378,6 +482,22 @@
                 align-items: center;
             }
 
+            input.char-input, .speaker-btn {
+                width: 25px;
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .speaker-btn {
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .morse-display {
+                font-size: 12px;
+                max-width: 50px;
+            }
+
         }
     </style>
 </head>
@@ -391,7 +511,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-mapa-0')">Mapa</button>
+            <button class="btn" onclick="goToScreen('screen-actividad-2')">Actividad</button>
             <button class="btn" onclick="goToScreen('screen-puente-0')">Puente</button>
         </div>
     </div>
@@ -872,13 +992,70 @@
 
     <div class="screen" id="screen-puente-1">
         <div class="container">
-            <img src="img/puente.png" alt="puente" width="100%">
-            <div>
-                <input type="text" id="puente1-answer" placeholder="Qué ves en la imagen?">
+            <div style="padding: 5px; background-color: #fff;">
+                <img src="img/puente.png" alt="puente" height="500">
             </div>
-            <button class="btn" onclick="checkScreenPuente1()">A por ellos</button>
+            <p> </p>
+            <div>
+                <input type="text" id="puente1-answer" placeholder="Escribe aquí el resultado">
+            </div>
+            <button class="btn" onclick="checkScreenPuente1()">Comprobar</button>
         </div>
     </div>
+
+    <div class="screen" id="screen-puente-2">
+        <div class="container">
+            <img src="img/puente-sign.png" alt="puente" width="100%">
+             <p> </p>
+            <div>
+                <input type="text" id="puente2-answer" placeholder="Escribe aquí la respuesta">
+            </div>
+            <button class="btn" onclick="checkScreenPuente2()">Comprobar</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-actividad-0">
+        <div class="container">
+            <h1>Séptima serie de acertijos</h1>
+            <h1>Buscando la pista 7️⃣</h1>
+            <button class="btn" onclick="goToScreen('screen-actividad-1')">A por ellos</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-actividad-1">
+        <div class="container">
+            <h2>Mensaje escondido en el texto</h2>
+            
+<p>Unai <b>C</b>umple diez años y su mami le hizo una fiesta en el sal<b>Ó</b>n de casa con una mesa llena <b>D</b>e dulces y golosinas.</p>
+<p>Sus am<b>I</b>gos van sentándose mientras otros amigos van lle<b>G</b>and<b>O</b>, sie<b>M</b>pre alguno llega tarde.</p>
+<p>Los jueg<b>O</b>s comienzan <b>R</b>ápidamente: corren entre los árbole<b>S</b> del jardín y después organizan una búsqu<b>E</b>da del tesoro.</p>
+            <div>
+                <input type="text" id="actividad1-answer" placeholder="Escribe el mensaje aquí">
+            </div>
+            <button class="btn" onclick="checkScreenActividad1()">Comprobar</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-actividad-2">
+        <div class="container">
+            <div class="word-section">
+            <table class="morse-table" id="actividad-table">
+                <tr id="actividad-inputs"></tr>
+                <tr id="actividad-buttons"></tr>
+            </table>
+        </div>
+
+        <div class="word-section">
+            <table class="morse-table" id="molona-table">
+                <tr id="molona-inputs"></tr>
+                <tr id="molona-buttons"></tr>
+            </table>
+        </div>
+            <button class="btn" onclick="checkScreenActividad2()">Comprobar</button>
+        </div>
+    </div>
+
+
 
     <!-- Inventario -->
     <div class="inventory" id="inventory">
@@ -1152,9 +1329,58 @@
             const answerInput = document.getElementById('puente1-answer');
             const answer = answerInput.value.trim().toLowerCase();
 
-            if (answer === 'puente') {
+            if (answer === 'lengua de signos') {
                 alert('¡Correcto!');
                 goToScreen('screen-puente-2');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        function checkScreenPuente2() {
+            const answerInput = document.getElementById('puente2-answer');
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (answer === 'puente de luis i') {
+                alert('¡Correcto! Has encontrado la sexta pista.');
+                addToInventory('Pista 6: Puente de Luis I');
+                goToScreen('screen-actividad-0');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        function checkScreenActividad1() {
+            const answerInput = document.getElementById('actividad1-answer');
+            const answer = answerInput.value.trim().toLowerCase();
+
+            if (answer === 'código morse' || answer === 'codigo morse') {
+                alert('¡Correcto!');
+                goToScreen('screen-actividad-2');
+            } else {
+                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+            }
+        }
+
+        function checkScreenActividad2() {
+            const actividadInput = document.getElementById('actividad-inputs').querySelectorAll('input');
+            const molonaInput = document.getElementById('molona-inputs').querySelectorAll('input');
+
+            let actividadAnswer = '';
+            actividadInput.forEach(input => {
+                actividadAnswer += input.value.trim().toUpperCase();
+            });
+
+            let molonaAnswer = '';
+            molonaInput.forEach(input => {
+                molonaAnswer += input.value.trim().toUpperCase();
+            });
+
+            if (actividadAnswer === 'ACTIVIDAD' && molonaAnswer === 'MOLONA') {
+                alert('¡Correcto! Has encontrado la séptima pista.');
+                addToInventory('Pista 7: Actividad Molona');
+                alert('¡Felicidades! Has completado todos los acertijos y encontrado todas las pistas.');
+                goToScreen('screen-greeting');
             } else {
                 alert('Respuesta incorrecta. Inténtalo de nuevo.');
             }
@@ -1188,6 +1414,164 @@
                 this.style.fontSize = '16px';
             });
         });
+    </script>
+
+    <script>
+        // Tabla de código morse
+        const morseCode = {
+            'A': '.-',    'B': '-...',  'C': '-.-.',  'D': '-..',   'E': '.',
+            'F': '..-.',  'G': '--.',   'H': '....',  'I': '..',    'J': '.---',
+            'K': '-.-',   'L': '.-..',  'M': '--',    'N': '-.',    'O': '---',
+            'P': '.--.',  'Q': '--.-',  'R': '.-.',   'S': '...',   'T': '-',
+            'U': '..-',   'V': '...-',  'W': '.--',   'X': '-..-',  'Y': '-.--',
+            'Z': '--..',  '0': '-----', '1': '.----', '2': '..---', '3': '...--',
+            '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+            '9': '----.', ' ': '/'
+        };
+
+        const words = {
+            'ACTIVIDAD': 'ACTIVIDAD',
+            'MOLONA': 'MOLONA'
+        };
+
+        // Configuración de audio para morse
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const morseFrequency = 800; // Hz - tono típico de morse
+        const wpm = 10; // Palabras por minuto
+        
+        // Cálculo de tiempos en milisegundos (estándar morse)
+        const dotDuration = 1200 / wpm; // Duración de un punto
+        const dashDuration = dotDuration * 3; // Raya = 3 puntos
+        const symbolGap = dotDuration; // Pausa entre símbolos
+        const letterGap = dotDuration * 3; // Pausa entre letras
+        const wordGap = dotDuration * 7; // Pausa entre palabras
+
+        // Función para reproducir un tono
+        function playTone(frequency, duration) {
+            return new Promise((resolve) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                // Envelope para evitar clicks
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + duration / 1000 - 0.01);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration / 1000);
+                
+                setTimeout(() => resolve(), duration);
+            });
+        }
+
+        // Función para reproducir pausa
+        function playPause(duration) {
+            return new Promise(resolve => setTimeout(resolve, duration));
+        }
+
+        // Función para reproducir código morse de un carácter
+        async function playMorseChar(char, button) {
+            const morse = morseCode[char.toUpperCase()];
+            if (!morse) return;
+
+            button.classList.add('playing');
+            
+            if (morse === '/') {
+                // Es un espacio
+                await playPause(wordGap);
+            } else {
+                // Reproducir cada símbolo morse
+                for (let i = 0; i < morse.length; i++) {
+                    const symbol = morse[i];
+                    
+                    if (symbol === '.') {
+                        await playTone(morseFrequency, dotDuration);
+                    } else if (symbol === '-') {
+                        await playTone(morseFrequency, dashDuration);
+                    }
+                    
+                    // Pausa entre símbolos (excepto el último)
+                    if (i < morse.length - 1) {
+                        await playPause(symbolGap);
+                    }
+                }
+            }
+            
+            button.classList.remove('playing');
+        }
+
+        // Función para crear elementos de una palabra
+        function createWordElements(word, prefix) {
+            const inputRow = document.getElementById(`${prefix}-inputs`);
+            const buttonRow = document.getElementById(`${prefix}-buttons`);
+
+            word.split('').forEach((char, index) => {
+                // Celda para input
+                const inputCell = document.createElement('td');
+                inputCell.className = 'char-cell';
+                
+                const input = document.createElement('input');
+                input.id = `${prefix}-char-${index}`;
+                input.type = 'text';
+                input.className = char === ' ' ? 'char-input space-input' : 'char-input';
+                //input.value = char === ' ' ? '␣' : char;
+                input.maxLength = 1;
+                //input.readOnly = true;
+                
+                inputCell.appendChild(input);
+                inputRow.appendChild(inputCell);
+
+                // Celda para botón
+                const buttonCell = document.createElement('td');
+                buttonCell.className = 'char-cell';
+                
+                const button = document.createElement('button');
+                button.className = 'speaker-btn';
+                button.innerHTML = '🔊';
+                button.title = `Reproducir morse de "${char === ' ' ? 'espacio' : char}"`;
+                
+                // Event listener para reproducir morse
+                button.addEventListener('click', async () => {
+                    // Inicializar contexto de audio si está suspendido
+                    if (audioContext.state === 'suspended') {
+                        await audioContext.resume();
+                    }
+                    
+                    await playMorseChar(char, button);
+                });
+                
+                buttonCell.appendChild(button);
+                buttonRow.appendChild(buttonCell);
+
+                // Celda para código morse
+                const morseCell = document.createElement('td');
+                morseCell.className = 'char-cell';
+                
+                const morseDisplay = document.createElement('div');
+                morseDisplay.className = 'morse-display';
+                morseDisplay.textContent = morseCode[char.toUpperCase()] || '(esp)';
+                
+                morseCell.appendChild(morseDisplay);
+            });
+        }
+
+        // Crear elementos para ambas palabras
+        createWordElements('ACTIVIDAD', 'actividad');
+        createWordElements('MOLONA', 'molona');
+
+        // Inicializar contexto de audio en la primera interacción
+        document.addEventListener('click', async () => {
+            if (audioContext.state === 'suspended') {
+                await audioContext.resume();
+            }
+        }, { once: true });
     </script>
 </body>
 
