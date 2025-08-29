@@ -47,3 +47,5 @@ Buenas tardes Unai, somos tu familia, no te flipes que no somos los Vengadores n
 Cómo tu regalo no te lo podemos dar porque no se puede tocar, tendrás que adivinarlo con una serie de juegos y acertijos que te hemos preparado. Has acabado bien el colegio ¿verdad?, porque si no, igual no lo resuelves y nos quedamos con el regalo.
 
 
+* Quitar todos los filtros que muestren el resultadp
+

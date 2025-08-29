@@ -449,7 +449,59 @@
             font-size: 14px;
         }
 
+        .scratch-container {
+            position: relative;
+            width: 330px;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
 
+        .scratch-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            overflow-y: auto;
+        }
+
+        .scratch-question {
+            margin-bottom: 10px;
+            padding: 4px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .scratch-question strong {
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .scratch-answer {
+            color: #27ae60;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .scratch-canvas:active {
+            cursor: grabbing;
+        }
 
 
 
@@ -519,7 +571,6 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-actividad-1')">Atajo</button>
         </div>
     </div>
 
@@ -539,8 +590,7 @@
         <div class="container">
             <h1>ℹ️ Explicación ℹ️</h1>
             <p>Cada serie de acertijos te darán acceso a una pista sobre el regalo.</p>
-            <p>Deberás guardarlas en tu inventario.</p>
-            <p> En cualquier momento puedes ver el inventario abajo del todo.</p>
+            <p>Ten otro móvil cerca por si acaso necesitas ayuda.</p>
             <button class="btn" onclick="goToScreen('screen-moving-button')">Vamos al lío</button>
         </div>
     </div>
@@ -1029,7 +1079,8 @@
             <h2>Mensaje escondido en el texto</h2>
 
             <p>Unai <b>C</b>umple diez años y su mami le hizo una fiesta en el sal<b>Ó</b>n de casa con una mesa llena
-                <b>D</b>e dulces y golosinas.</p>
+                <b>D</b>e dulces y golosinas.
+            </p>
             <p>Sus am<b>I</b>gos van sentándose mientras otros amigos van lle<b>G</b>and<b>O</b>, sie<b>M</b>pre alguno
                 llega tarde.</p>
             <p>Los jueg<b>O</b>s comienzan <b>R</b>ápidamente: corren entre los árbole<b>S</b> del jardín y después
@@ -1059,6 +1110,81 @@
             <button class="btn" onclick="checkScreenActividad2()">Comprobar</button>
         </div>
     </div>
+
+    <div class="screen" id="screen-finish-0">
+        <div class="container">
+            <h1>🎉 ¡Menudo crack! 🎉</h1>
+            <h2>Has resuelto todos los acertijos y has conseguido todas las pistas.</h2>
+            <h2>Ya solo te queda descubrir cuál es tu regalo revisando el inventario</h2>
+            <button class="btn" onclick="goToScreen('screen-finish-1')">Revisar inventario</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-finish-1">
+        <div class="container">
+            <h1>Inventario</h1>
+            <div class="scratch-container">
+                <!-- Contenido que se revela al rascar -->
+                <div class="scratch-content">
+                    <div class="scratch-question">
+                        <strong>1. ¿Cuál es el regalo?</strong><br>
+                        <span class="scratch-answer">VIAJE</span>
+                    </div>
+
+                    <div class="scratch-question">
+                        <strong>2. ¿Con quién vas a ir?</strong><br>
+                        <span class="scratch-answer">MAMI</span>
+                    </div>
+
+                    <div class="scratch-question">
+                        <strong>3. ¿En qué vas a ir?</strong><br>
+                        <span class="scratch-answer">AVIÓN</span>
+                    </div>
+
+                    <div class="scratch-question">
+                        <strong>4. ¿Dónde vas a ir?</strong><br>
+                        <span class="scratch-answer">PORTUGAL</span>
+                    </div>
+
+                    <div class="scratch-question">
+                        <strong>5. ¿A qué ciudad concretamente?</strong><br>
+                        <span class="scratch-answer">OPORTO</span>
+                    </div>
+
+                    <div class="scratch-question">
+                        <strong>6. ¿Vas a ir a ver algo?</strong><br>
+                        <span class="scratch-answer">PUENTE DE LUIS I</span>
+                    </div>
+
+                    <div class="scratch-question">
+                        <strong>7. ¿Y vas a hacer algo más?</strong><br>
+                        <span class="scratch-answer">UNA ACTIVIDAD SUPERMOLONA</span>
+                    </div>
+                </div>
+
+                <!-- Canvas para rascar -->
+                <canvas class="scratch-canvas" width="330" height="500"></canvas>
+            </div>
+            <button class="btn" onclick="goToScreen('screen-finish-2')">Dale anda...</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-finish-2">
+        <div class="container">
+            <h1>¡¡Muchas Felicidades!!</h1>
+            <h1>Esperamos que lo disfrutes y que te lo pases genial</h1>
+            <button class="btn" onclick="goToScreen('screen-finish-3')">Pulsa para ver precio</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-finish-3">
+        <div class="container">
+            <h1>Cómo flipas</h1>
+            <p>No se dice lo que cuestan los regalos, se disfrutan y ya está.</p>
+            <p><i>(Aunque hayamos tenido que vender tu bicicleta para pagarlo)</i></p>
+        </div>
+    </div>
+
 
 
 
@@ -1112,6 +1238,10 @@
 
                 if (screenId === 'screen-mapa-1') {
                     initMapa1();
+                }
+
+                if (screenId === 'screen-finish-1') {
+                    initialiseScratch();
                 }
 
             }, 250);
@@ -1397,8 +1527,7 @@
             if (actividadAnswer === 'ACTIVIDAD' && molonaAnswer === 'MOLONA') {
                 alert('¡Correcto! Has encontrado la séptima pista.');
                 addToInventory('Pista 7: Actividad Molona');
-                alert('¡Felicidades! Has completado todos los acertijos y encontrado todas las pistas.');
-                goToScreen('screen-greeting');
+                goToScreen('screen-finish-0');
             } else {
                 alert('Respuesta incorrecta. Inténtalo de nuevo.');
             }
@@ -1591,6 +1720,110 @@
             }
         }, { once: true });
     </script>
+
+
+    <script>
+        function initialiseScratch() {
+            const scratchContainer = document.querySelector('.scratch-container');
+            const scratchCanvas = scratchContainer.querySelector('.scratch-canvas');
+            const scratchCtx = scratchCanvas.getContext('2d');
+
+            let scratchIsScratching = false;
+            const scratchBrushSize = 25;
+
+            // Inicializar canvas con capa plateada
+            function scratchInitCanvas() {
+                // Fondo plateado
+                const gradient = scratchCtx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
+                gradient.addColorStop(0, '#f0f0f0');
+                gradient.addColorStop(0.5, '#c0c0c0');
+                gradient.addColorStop(1, '#a0a0a0');
+                scratchCtx.fillStyle = gradient;
+                scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+
+                // Texto "RASCA PARA VER"
+                scratchCtx.fillStyle = '#666';
+                scratchCtx.font = 'bold 24px Arial';
+                scratchCtx.textAlign = 'center';
+                scratchCtx.textBaseline = 'middle';
+                scratchCtx.fillText('RASCA PARA VER', scratchCanvas.width / 2, scratchCanvas.height / 2 - 20);
+                scratchCtx.fillText('LAS RESPUESTAS', scratchCanvas.width / 2, scratchCanvas.height / 2 + 20);
+            }
+
+            // Obtener posición del evento
+            function scratchGetEventPos(e) {
+                const rect = scratchCanvas.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+                return {
+                    x: (clientX - rect.left) * (scratchCanvas.width / rect.width),
+                    y: (clientY - rect.top) * (scratchCanvas.height / rect.height)
+                };
+            }
+
+            // Rascar en posición
+            function scratchAt(x, y) {
+                scratchCtx.globalCompositeOperation = 'destination-out';
+                scratchCtx.beginPath();
+                scratchCtx.arc(x, y, scratchBrushSize, 0, 2 * Math.PI);
+                scratchCtx.fill();
+            }
+
+            // Event listeners ratón
+            scratchCanvas.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                scratchIsScratching = true;
+                const pos = scratchGetEventPos(e);
+                scratchAt(pos.x, pos.y);
+            });
+
+            scratchCanvas.addEventListener('mousemove', (e) => {
+                if (scratchIsScratching) {
+                    e.preventDefault();
+                    const pos = scratchGetEventPos(e);
+                    scratchAt(pos.x, pos.y);
+                }
+            });
+
+            scratchCanvas.addEventListener('mouseup', () => {
+                scratchIsScratching = false;
+            });
+
+            scratchCanvas.addEventListener('mouseleave', () => {
+                scratchIsScratching = false;
+            });
+
+            // Event listeners touch
+            scratchCanvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                scratchIsScratching = true;
+                const pos = scratchGetEventPos(e);
+                scratchAt(pos.x, pos.y);
+            });
+
+            scratchCanvas.addEventListener('touchmove', (e) => {
+                if (scratchIsScratching) {
+                    e.preventDefault();
+                    const pos = scratchGetEventPos(e);
+                    scratchAt(pos.x, pos.y);
+                }
+            });
+
+            scratchCanvas.addEventListener('touchend', () => {
+                scratchIsScratching = false;
+            });
+
+            scratchCanvas.addEventListener('touchcancel', () => {
+                scratchIsScratching = false;
+            });
+
+            // Inicializar
+            scratchInitCanvas();
+        }
+    </script>
+
+
 </body>
 
 </html>
