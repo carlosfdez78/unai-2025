@@ -340,13 +340,14 @@
             transition: background-color 0.3s ease;
         }
 
+        /* 
         .morse-table {
-            /* width: 100%;
+            width: 100%;
             border-collapse: separate;
             border-spacing: 2px;
-            margin: 20px 0; */
+            margin: 20px 0;
         }
-
+ */
         .word-section {
             margin: 20px 0;
         }
@@ -564,6 +565,17 @@
 </head>
 
 <body>
+
+    <div class="screen" id="screen-alert">
+        <div class="container">
+            <img id="alert-img" src="img/ok1.gif" alt="ok">
+            <p> </p>
+            <h1 id="alert-title">???</h1>
+            <button id="alert-button" class="btn" onclick="goToScreen('???')">???</button>
+        </div>
+    </div>
+
+
     <!-- Pantalla de Inicio -->
     <div class="screen active" id="screen-greeting">
         <div class="container">
@@ -572,6 +584,7 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
+            <button class="btn" onclick="goToScreen('screen-viaje-1')">Atajo</button>
         </div>
     </div>
 
@@ -590,7 +603,7 @@
     <div class="screen" id="screen-explain">
         <div class="container">
             <h1>ℹ️ Explicación ℹ️</h1>
-            <p>Cada serie de acertijos te darán acceso a una pista sobre el regalo.</p>
+            <p>Cada serie de acertijos te dará acceso a una pista sobre el regalo.</p>
             <p>Ten otro móvil cerca por si acaso necesitas ayuda.</p>
             <button class="btn" onclick="goToScreen('screen-moving-button')">Vamos al lío</button>
         </div>
@@ -639,6 +652,9 @@
             <button class="btn" onclick="checkScreenViaje1()">Comprobar</button>
         </div>
     </div>
+
+
+
 
     <div class="screen" id="screen-viaje-2">
         <div class="container">
@@ -1114,9 +1130,10 @@
 
     <div class="screen" id="screen-finish-0">
         <div class="container">
+            <img src="img/congratulations.gif" alt="congrats">
             <h1>🎉 ¡Menudo crack! 🎉</h1>
-            <h2>Has resuelto todos los acertijos y has conseguido todas las pistas.</h2>
-            <h2>Ya solo te queda descubrir cuál es tu regalo revisando el inventario</h2>
+            <p>Has resuelto todos los acertijos y has conseguido todas las pistas.
+            Ya solo te queda descubrir cuál es tu regalo revisando el inventario</p>
             <button class="btn" onclick="goToScreen('screen-finish-1')">Revisar inventario</button>
         </div>
     </div>
@@ -1269,6 +1286,23 @@
 
         }
 
+        function alertScreen(title, imgSrc, buttonText, nextScreen) {
+            const alertScreen = document.getElementById('screen-alert');
+            const alertTitle = document.getElementById('alert-title');
+            const alertImg = document.getElementById('alert-img');
+            const alertButton = document.getElementById('alert-button');
+
+            alertTitle.textContent = title;
+            alertImg.src = imgSrc;
+            alertButton.textContent = buttonText;
+            alertButton.onclick = function () {
+                goToScreen(nextScreen);
+            };
+
+            goToScreen('screen-alert');
+        }
+
+
         function startMovingButton() {
             const button = document.getElementById('moving-start-btn');
             const container = document.getElementById('button-container');
@@ -1327,10 +1361,9 @@
             const answer = answerInput.value.trim();
 
             if (answer === '8') {
-                alert('¡Correcto!');
-                goToScreen('screen-viaje-2');
+                alertScreen('¡Correcto!', 'img/ok1.gif', 'Seguir', 'screen-viaje-2');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('¡Fallaste truan!', 'img/fail01.gif', 'Volver a intentar', 'screen-viaje-1');
             }
         }
 
@@ -1339,10 +1372,9 @@
             const answer = answerInput.value.trim();
 
             if (answer === '30825') {
-                alert('¡Correcto!');
-                goToScreen('screen-viaje-3');
+                alertScreen('¡Correcto!', 'img/ok2.gif', 'Seguir', 'screen-viaje-3');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Eeeeeeerror!', 'img/fail01.gif', 'Volver a intentar', 'screen-viaje-2');
             }
         }
 
@@ -1351,11 +1383,9 @@
             const answer = answerInput.value.trim();
 
             if (answer.toLowerCase() === 'viaje') {
-                alert('Has encontrado la primera pista!');
-                addToInventory('Pista 1: Viaje');
-                goToScreen('screen-mapa-0');
+                alertScreen('¡Encontraste la primera pista!', 'img/ok3.gif', 'Vamos vamos', 'screen-mapa-0');
             } else {
-                alert('A tí te parece que esta palabra tiene sentido? Inténtalo de nuevo que te meto.');
+                alertScreen('Inténtalo de nuevo que te meto.', 'img/fail01.gif', 'Volver a intentar', 'screen-viaje-3');
             }
         }
 
@@ -1400,12 +1430,12 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'ines' || answer === 'inés' || answer === 'mami') {
-                alert('¡Correcto! Has encontrado la segunda pista.');
-                addToInventory('Pista 2: Mami');
-                goToScreen('screen-avion-0');
+                alertScreen('¡Encontraste la segunda pista!', 'img/ok4.gif', 'Estoy a tope', 'screen-avion-0');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Esto está muuu mal.', 'img/fail01.gif', 'Volver a intentar', 'screen-mapa-2');
             }
+
+
         }
 
         function checkScreenAvion1() {
@@ -1413,10 +1443,9 @@
             const answer = answerInput.value.trim();
 
             if (answer === '19') {
-                alert('¡Correcto!');
-                goToScreen('screen-avion-2');
+                alertScreen('¡Ahí lo llevas!', 'img/ok5.gif', 'Seguir', 'screen-avion-2');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Faaaaatal', 'img/fail01.gif', 'Volver a intentar', 'screen-avion-1');
             }
         }
 
@@ -1425,11 +1454,9 @@
             const answer = answerInput.value.toLowerCase().trim();
 
             if (answer === 'avion' || answer === 'avión') {
-                alert('¡Correcto! Has encontrado la tercera pista.');
-                addToInventory('Pista 3: Avión');
-                goToScreen('screen-portugal-0');
+                alertScreen('¡Encontraste la tercera pista!', 'img/ok6.gif', 'No me para nadie', 'screen-portugal-0');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Noup, no te concentras?', 'img/fail01.gif', 'Volver a intentar', 'screen-avion-2');
             }
         }
 
@@ -1450,11 +1477,11 @@
             }
 
             if (score === 6) {
-                alert('¡Correcto!');
-                goToScreen('screen-portugal-2');
+                alertScreen('¡Ahí lo llevas!', 'img/ok7.gif', 'Seguir', 'screen-portugal-2');
             } else {
-                alert('Algo falla amiguete. Revisa las respuestas');
+                alertScreen('Algo falla amiguete. Revisa las respuestas', 'img/fail01.gif', 'Volver a intentar', 'screen-portugal-1');
             }
+
         }
 
         function checkScreenPortugal2() {
@@ -1462,12 +1489,11 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'portugal') {
-                alert('¡Correcto! Has encontrado la cuarta pista.');
-                addToInventory('Pista 4: Portugal');
-                goToScreen('screen-oporto-0');
+                alertScreen('¡Encontraste la cuarta pista!', 'img/ok8.gif', 'Estoy en racha', 'screen-oporto-0');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Si sigues fallando me piro', 'img/fail01.gif', 'Volver a intentar', 'screen-portugal-2');
             }
+
         }
 
         function applyColorFilter() {
@@ -1486,12 +1512,11 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'oporto') {
-                alert('¡Correcto! Has encontrado la quinta pista.');
-                addToInventory('Pista 5: Oporto');
-                goToScreen('screen-puente-0');
+                alertScreen('¡Encontraste la quinta pista!', 'img/ok9.gif', 'No puedo parar de acertar!', 'screen-puente-0');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Ay madreee', 'img/fail01.gif', 'Volver a intentar', 'screen-oporto-1');
             }
+             
         }
 
         function checkScreenPuente1() {
@@ -1499,11 +1524,11 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'lengua de signos') {
-                alert('¡Correcto!');
-                goToScreen('screen-puente-2');
+                alertScreen('¡Diana!', 'img/ok10.gif', 'Seguir', 'screen-puente-2');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Se te olvidó leer?', 'img/fail01.gif', 'Volver a intentar', 'screen-puente-1');
             }
+                
         }
 
         function checkScreenPuente2() {
@@ -1511,12 +1536,11 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'puente de luis i') {
-                alert('¡Correcto! Has encontrado la sexta pista.');
-                addToInventory('Pista 6: Puente de Luis I');
-                goToScreen('screen-actividad-0');
+                alertScreen('¡Encontraste la sexta pista!', 'img/congratulations.gif', 'Me llaman el adivinador', 'screen-actividad-0');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('A los sordos no les gusta tu respuesta', 'img/fail01.gif', 'Volver a intentar', 'screen-puente-2');
             }
+              
         }
 
         function checkScreenActividad1() {
@@ -1524,10 +1548,9 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'código morse' || answer === 'codigo morse') {
-                alert('¡Correcto!');
-                goToScreen('screen-actividad-2');
+                alertScreen('Estupendo!', 'img/ok11.gif', 'Seguir', 'screen-actividad-2');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Mira a ver otra vez anda', 'img/fail01.gif', 'Volver a intentar', 'screen-actividad-1');
             }
         }
 
@@ -1546,35 +1569,13 @@
             });
 
             if (actividadAnswer === 'ACTIVIDAD' && molonaAnswer === 'MOLONA') {
-                alert('¡Correcto! Has encontrado la séptima pista.');
-                addToInventory('Pista 7: Actividad Molona');
-                goToScreen('screen-finish-0');
+                alertScreen('¡Encontraste la séptima pista!', 'img/ok12.gif', 'Me llaman el adivinador', 'screen-finish-0');
             } else {
-                alert('Respuesta incorrecta. Inténtalo de nuevo.');
+                alertScreen('Afina el oído chiquillo', 'img/fail01.gif', 'Volver a intentar', 'screen-actividad-2');
             }
+              
         }
 
-
-        function addToInventory(item) {
-            if (!inventory.includes(item)) {
-                inventory.push(item);
-                updateInventoryDisplay();
-                alert(`Has añadido: ${item} al inventario.`);
-            } else {
-                alert('Ya tienes este objeto.');
-            }
-        }
-
-        function updateInventoryDisplay() {
-            const inventoryDiv = document.getElementById('inventory-items');
-            if (inventory.length === 0) {
-                inventoryDiv.innerHTML = '<div class="inventory-item">Vacío</div>';
-            } else {
-                inventoryDiv.innerHTML = inventory.map(item =>
-                    `<div class="inventory-item">${item}</div>`
-                ).join('');
-            }
-        }
 
         // Prevenir zoom en inputs en iOS
         document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
