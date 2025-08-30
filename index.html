@@ -1185,7 +1185,7 @@
             <h1>Cómo flipas</h1>
             <p>No se dice lo que cuestan los regalos, se disfrutan y ya está.</p>
             <p><i>(Aunque hayamos tenido que vender tu bicicleta para pagarlo)</i></p>
-            
+
         </div>
     </div>
 
@@ -1209,6 +1209,27 @@
         let buttonMoved = false;
         let canClickMovingButton = false;
 
+        function scrollToTop() {
+            // Primero intentar con el método moderno
+            if (window.scrollTo) {
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Fallback para móviles problemáticos
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+
+            // Para iOS Safari específicamente
+            if (window.pageYOffset > 0) {
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 0);
+            }
+        }
 
         function goToScreen(screenId) {
             // Ocultar pantalla actual
@@ -1223,13 +1244,7 @@
                 newScreen.classList.add('active');
                 currentScreen = screenId;
 
-                window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-
-                window.scrollTo(0, 0);
+                scrollToTop()
 
                 if (screenId === 'screen-moving-button') {
                     initMovingButtonScreen();
