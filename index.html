@@ -584,7 +584,6 @@
             <p>No te flipes que no somos los Vengadores 🦸🏻‍♀️ ni la Patrulla Canina 🐶</p>
             <p>Confórmate con la que tienes delante y los que viven por Alemania.</p>
             <button class="btn" onclick="goToScreen('screen-greeting2')">Siguiente</button>
-            <button class="btn" onclick="goToScreen('screen-viaje-1')">Atajo</button>
         </div>
     </div>
 
@@ -1131,6 +1130,7 @@
     <div class="screen" id="screen-finish-0">
         <div class="container">
             <img src="img/congratulations.gif" alt="congrats">
+            <p></p>
             <h1>🎉 ¡Menudo crack! 🎉</h1>
             <p>Has resuelto todos los acertijos y has conseguido todas las pistas.
             Ya solo te queda descubrir cuál es tu regalo revisando el inventario</p>
@@ -1536,7 +1536,7 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'puente de luis i') {
-                alertScreen('¡Encontraste la sexta pista!', 'img/congratulations.gif', 'Me llaman el adivinador', 'screen-actividad-0');
+                alertScreen('¡Encontraste la sexta pista!', 'img/ok11.gif', 'Me llaman el adivinador', 'screen-actividad-0');
             } else {
                 alertScreen('A los sordos no les gusta tu respuesta', 'img/fail01.gif', 'Volver a intentar', 'screen-puente-2');
             }
@@ -1548,7 +1548,7 @@
             const answer = answerInput.value.trim().toLowerCase();
 
             if (answer === 'código morse' || answer === 'codigo morse') {
-                alertScreen('Estupendo!', 'img/ok11.gif', 'Seguir', 'screen-actividad-2');
+                alertScreen('Estupendo!', 'img/ok12.gif', 'Seguir', 'screen-actividad-2');
             } else {
                 alertScreen('Mira a ver otra vez anda', 'img/fail01.gif', 'Volver a intentar', 'screen-actividad-1');
             }
@@ -1569,7 +1569,7 @@
             });
 
             if (actividadAnswer === 'ACTIVIDAD' && molonaAnswer === 'MOLONA') {
-                alertScreen('¡Encontraste la séptima pista!', 'img/ok12.gif', 'Me llaman el adivinador', 'screen-finish-0');
+                alertScreen('¡Encontraste la séptima pista!', 'img/ok13.gif', 'Me llaman el adivinador', 'screen-finish-0');
             } else {
                 alertScreen('Afina el oído chiquillo', 'img/fail01.gif', 'Volver a intentar', 'screen-actividad-2');
             }
